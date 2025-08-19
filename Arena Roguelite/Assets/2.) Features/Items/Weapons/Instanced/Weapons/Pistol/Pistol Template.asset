@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b39274e66183bb04092f53c9bf96e636, type: 3}
+  m_Name: Pistol Template
+  m_EditorClassIdentifier: 
+  Type: 0
+  Name: 9mm Pistol
+  Value: 0
+  EquippedEnergyCost: 0
+  Prefab: {fileID: 2597051085564442397, guid: 1cac08575c1e8cf4aa7210b2cf93af60, type: 3}
+  InventoryIcon: {fileID: 0}
+  ActiveInventoryIcon: {fileID: 0}

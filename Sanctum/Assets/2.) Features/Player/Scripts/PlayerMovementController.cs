@@ -122,6 +122,11 @@ public class PlayerMovementController : PlayerBase
         return _groundedPlayer;
     }
 
+    public bool GetRechargeApproval()
+    {
+        return _isDashing == false;
+    }
+    
     private void MoveActionHandler()
     {
         float movementSpeed;
@@ -155,7 +160,7 @@ public class PlayerMovementController : PlayerBase
             bool canAffordJump = GetComponent<PlayerStatusManager>()
                 .AffordEnergyCost(CurrentPlayerDetails.Stats.JumpCost);
             bool jumpDelayMet = _time >= _nextJumpInterval;
-            bool jumpCountMet = _curJumpCount < CurrentPlayerDetails.Stats.Jumps;
+            bool jumpCountMet = _curJumpCount < CurrentPlayerDetails.Stats.MaxJumps;
 
             if (_canJump)
             {
@@ -165,7 +170,7 @@ public class PlayerMovementController : PlayerBase
                     _nextJumpInterval = _time + CurrentPlayerDetails.Stats.JumpDelay;
                     _curJumpCount++;
 
-                    if (_curJumpCount >= CurrentPlayerDetails.Stats.Jumps)
+                    if (_curJumpCount >= CurrentPlayerDetails.Stats.MaxJumps)
                     {
                         _canJump = false;
                         StartCoroutine(JumpResetDelayRoutine());
@@ -202,6 +207,7 @@ public class PlayerMovementController : PlayerBase
         {
             _isDashing = true;
             _trailRenderer.SetActive(true);
+            _playerStatusManager.CanRechargeEnergy = false;
         }
     }
 
@@ -209,6 +215,7 @@ public class PlayerMovementController : PlayerBase
     {
         _isDashing = false;
         _trailRenderer.SetActive(false);
+        _playerStatusManager.CanRechargeEnergy = true;
     }
 
     private void PositionAimObject()

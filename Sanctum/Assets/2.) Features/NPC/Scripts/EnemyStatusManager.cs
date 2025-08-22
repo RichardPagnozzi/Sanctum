@@ -1,11 +1,13 @@
+using System;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
 using DamageNumbersPro;
 
-public class EnemyStatusManager : MonoBehaviour
+public class EnemyStatusManager : MonoBehaviour, IPoolReturn
 {
     #region Members
+
     public bool ShowStatus
     {
         get => _showStatus;
@@ -27,15 +29,16 @@ public class EnemyStatusManager : MonoBehaviour
             }
         }
     }
-    
+
     [SerializeField] private Slider _healthSlider;
     [SerializeField] private Slider _armorSlider;
     [SerializeField] private DamageNumber _damagePopup;
     [SerializeField] private ParticleSystem _bloodSplatter;
+    EnemySpawnController _spawner;
     private const float DeathDelay = 10;
     private const float WeakSpotMultiplier = 1.25f;
     private float _dmgAmnt;
-   
+
     public float _curEnemyHealth { get; private set; }
     public float _maxEnemyHealth { get; private set; }
     public float _curEnemyArmor { get; private set; }
@@ -45,6 +48,7 @@ public class EnemyStatusManager : MonoBehaviour
     private bool _showStatus;
 
     #endregion
+
     #region Monobehaviours
 
     private void Awake()
@@ -57,7 +61,9 @@ public class EnemyStatusManager : MonoBehaviour
         {
             _dmgAmnt = 10;
         }
-        _damagePopupCanvas = GameManager.Instance.ServiceLocator.GetService<ScreenCollector>().GetDamageNumberContainer()
+
+        _damagePopupCanvas = GameManager.Instance.ServiceLocator.GetService<ScreenCollector>()
+            .GetDamageNumberContainer()
             .GetComponent<RectTransform>();
     }
 
@@ -118,7 +124,7 @@ public class EnemyStatusManager : MonoBehaviour
             Color damageNumberColor;
 
             // Decide Damage Amnt
-            if(isWeakSpot)
+            if (isWeakSpot)
             {
                 trueDamage = rawDamage * WeakSpotMultiplier;
                 damageNumberColor = Color.yellow;
@@ -128,36 +134,36 @@ public class EnemyStatusManager : MonoBehaviour
                 trueDamage = dmg;
                 damageNumberColor = Color.white;
             }
-            
+
             // Deal Damage
             _curEnemyHealth -= trueDamage;
-            
+
             // Damage Number Popup
             DamageNumber damageNumber = _damagePopup.Spawn(Vector3.zero, trueDamage);
             damageNumber.SetColor(damageNumberColor);
             damageNumber.SetToMousePosition(_damagePopupCanvas, null);
-            
+
             //  Blood Splatter
             _bloodSplatter.transform.position = hitPosition;
             _bloodSplatter.Play();
-            
+
             // Trigger the HIT behaviour on our AI
             // TODO I want this to be chance based, depending on the weapons stopping power
             GetComponent<BlazeAI>().Hit(this.gameObject, false);
-            
+
             // Negative Health Checks
             EnemyNegativeHealthCheck();
             EnemyDeathCheck();
         }
     }
-    
+
     private IEnumerator ShowStatusIndicators()
     {
         ShowStatus = true;
         yield return new WaitForSeconds(0.75f);
         ShowStatus = false;
     }
-    
+
     // Health
     private void RecieveHealth(float health)
     {
@@ -169,7 +175,7 @@ public class EnemyStatusManager : MonoBehaviour
         _curEnemyHealth += health;
         EnemyMaxHealthCheck();
     }
-    
+
     private void IncreaseMaxHealth(float health)
     {
         _maxEnemyHealth += health;
@@ -183,10 +189,18 @@ public class EnemyStatusManager : MonoBehaviour
         {
             collider.enabled = false;
         }
+
         yield return new WaitForSeconds(DeathDelay);
-        Destroy(gameObject);
+        if (_spawner != null && _spawner.usePooling)
+        {
+            _spawner.ReturnToPool(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
-    
+
     // Effects
     private void UpdateSliders()
     {
@@ -196,8 +210,25 @@ public class EnemyStatusManager : MonoBehaviour
 
     public void AttackPlayer()
     {
-        GameManager.Instance.ServiceLocator.EventManager.OnPlayerRecieveDamage.Invoke(_dmgAmnt);
+        try
+        {
+            GameManager.Instance.ServiceLocator.EventManager.OnPlayerRecieveDamage.Invoke(_dmgAmnt);
+        }
+        catch (Exception)
+        {
+        }
+            
         Debug.Log("Attacking Player");
     }
+
+    #endregion
+
+    #region Public
+
+    public void SetupReturn(EnemySpawnController spawner)
+    {
+        _spawner = spawner;
+    }
+
     #endregion
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [System.Serializable]
 public class PlayerStats
@@ -60,7 +61,7 @@ public class PlayerStats
     [SerializeField] private float _jumpResetDelay;
     [SerializeField] private float _jumpCost;
 
-    [SerializeField] private int _jumps;
+    [SerializeField] private int _maxJumps;
 
     // Damage modifiers
     [SerializeField] private float _attackDamageModifier;
@@ -100,7 +101,7 @@ public class PlayerStats
     public float JumpDelay => _jumpDelay;
     public float JumpResetDelay => _jumpResetDelay;
     public float JumpCost => _jumpCost;
-    public int Jumps => _jumps;
+    public int MaxJumps => _maxJumps;
 
     // Damage modifiers
     public float AttackDamageModifier => _attackDamageModifier;
@@ -121,7 +122,7 @@ public class PlayerStats
     public PlayerStats(float level,
         float health, float energy, float energyRechargeAmmount, float armor, float movementSpeed,
         float movementRotationSpeed, float sprintSpeed, float sprintCost, float gravityValue, float aimAtObjectRange,
-        float jumpHeight, float jumpDelay, float jumpResetDelay, float jumpCost, int jumps, float attackDamageModifier,
+        float jumpHeight, float jumpDelay, float jumpResetDelay, float jumpCost, int maxJumps, float attackDamageModifier,
         float attackVelocityModifier, float criticalChanceModifier, float criticalDamageModifier,
         float armorPiercingModifier,
         int ammoPoolModifier, int inventorySlots, int activeItemSlots, int startingInventorySlots,
@@ -142,7 +143,7 @@ public class PlayerStats
         _jumpDelay = jumpDelay;
         _jumpResetDelay = jumpResetDelay;
         _jumpCost = jumpCost;
-        _jumps = jumps;
+        _maxJumps = maxJumps;
         _attackDamageModifier = attackDamageModifier;
         _attackVelocityModifier = attackVelocityModifier;
         _criticalChanceModifier = criticalChanceModifier;
@@ -176,7 +177,7 @@ public class PlayerStats
             { StatName.JumpDelay, value => _jumpDelay = value },
             { StatName.JumpResetDelay, value => _jumpResetDelay = value },
             { StatName.JumpCost, value => _jumpCost = value },
-            { StatName.Jumps, value => _jumps = (int)value },
+            { StatName.Jumps, value => _maxJumps = (int)value },
             { StatName.AttackDamageModifier, value => _attackDamageModifier = value },
             { StatName.AttackVelocityModifier, value => _attackVelocityModifier = value },
             { StatName.CriticalChanceModifier, value => _criticalChanceModifier = value },

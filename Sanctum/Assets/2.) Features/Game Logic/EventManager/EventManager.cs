@@ -23,7 +23,7 @@ public class EventManager
     public Action<float> OnPlayerRecieveArmor;
     public Action<float> OnPlayerIncreaseMaxArmor;
     // Player Energy
-    public Action<float> OnPlayerRecieveEnergy;
+    public Action<float> OnPlayerRecieveFlatEnergy;
     public Action<float> OnPlayerLoseEnergy;
     public Action<float, int> OnPlayerRecieveTickEnergy;
     public Action<float> OnPlayerIncreaseMaxEnergy;

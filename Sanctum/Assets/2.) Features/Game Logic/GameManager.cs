@@ -30,7 +30,10 @@ public class GameManager : Singleton<GameManager>
             ServiceLocator = gameObject.AddComponent<ServiceLocator>();
             ServiceLocator.Initialize();
             PlayerRepository = new PlayerRepository();
-            PlayerRepository.TryLoadPlayer();
+            if (PlayerRepository.TryLoadPlayer() == false)
+            {
+                PlayerRepository.InitializeNewPlayer(KeywordDictionary.PlayerCharacterType.Balanced);
+            }
             return true;
         }
         catch (Exception e)

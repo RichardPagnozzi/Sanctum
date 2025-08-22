@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class SceneLoadingManager : MonoBehaviour
 {
-    private enum DefaultLoadScene {DEFAULT, MAINMENU, TESTING }
+    private enum DefaultLoadScene {DEFAULT, MAINMENU, TESTING, SANDBOX, HQ }
     
     [Header("These can be found from a the Loading-Canvas Prefab")] [Space] [SerializeField]
     private GameObject _loadingScreen;
@@ -40,6 +40,16 @@ public class SceneLoadingManager : MonoBehaviour
                 LoadScene(KeywordDictionary.Scenes.MainMenu, LoadSceneMode.Additive);
                 break;
             }
+            case DefaultLoadScene.SANDBOX:
+            {
+                LoadScene(KeywordDictionary.Scenes.Sandbox, LoadSceneMode.Additive);
+                break;
+            }
+            case DefaultLoadScene.HQ:
+            {
+                LoadScene(KeywordDictionary.Scenes.GamePlay, LoadSceneMode.Additive);
+                break;
+            }
         }
     }
 
@@ -67,7 +77,7 @@ public class SceneLoadingManager : MonoBehaviour
                 }
                 case KeywordDictionary.Scenes.GamePlay:
                 {
-                    _loadingSceneOperations.Add(SceneManager.UnloadSceneAsync((int)KeywordDictionary.Scenes.MainMenu));
+                    //_loadingSceneOperations.Add(SceneManager.UnloadSceneAsync((int)KeywordDictionary.Scenes.MainMenu));
                     _loadingSceneOperations.Add(SceneManager.LoadSceneAsync((int)KeywordDictionary.Scenes.GamePlay,
                         LoadSceneMode.Additive));
                     activeSceneIndex = (int)KeywordDictionary.Scenes.GamePlay;
@@ -84,6 +94,13 @@ public class SceneLoadingManager : MonoBehaviour
                     _loadingSceneOperations.Add(SceneManager.LoadSceneAsync((int)KeywordDictionary.Scenes.Testing,
                         LoadSceneMode.Additive));
                     activeSceneIndex = (int)KeywordDictionary.Scenes.Testing;
+                    break;
+                }
+                case KeywordDictionary.Scenes.Sandbox:
+                {
+                    _loadingSceneOperations.Add(SceneManager.LoadSceneAsync((int)KeywordDictionary.Scenes.Sandbox,
+                        LoadSceneMode.Additive));
+                    activeSceneIndex = (int)KeywordDictionary.Scenes.Sandbox;
                     break;
                 }
             }

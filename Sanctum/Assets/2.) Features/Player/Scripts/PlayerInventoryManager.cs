@@ -125,7 +125,7 @@ public class PlayerInventoryManager : PlayerBase
                     DestroyEquippedWeaponObject();
 
                     // This removes the item completely from the inventory
-                    //RemoveItem(_equippedWeaponRef.ItemTemplate);
+                    RemoveItemFromInventory(_equippedWeaponRef.ItemTemplate);
                 }
 
                 _equippedWeaponRef.SetDetails(Instantiate(item.Prefab, _weaponParent), item);

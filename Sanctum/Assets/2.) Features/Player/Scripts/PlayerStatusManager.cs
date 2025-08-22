@@ -23,6 +23,12 @@ public class PlayerStatusManager : PlayerBase
     private float _curPlayerEnergy;
     private bool _isInitialized = false;
     private const float TickIntervalDuration = 0.2f;
+
+    public bool CanRechargeEnergy
+    {
+        get => _rechargeEnergy; 
+        set => _rechargeEnergy = value;
+    }
     
     #endregion 
 
@@ -41,7 +47,7 @@ public class PlayerStatusManager : PlayerBase
         GameManager.Instance.ServiceLocator.EventManager.OnPlayerRecieveHealth += RecieveHealth;
         GameManager.Instance.ServiceLocator.EventManager.OnPlayerRecieveTickHealth += RecieveTickHealth;
         GameManager.Instance.ServiceLocator.EventManager.OnPlayerIncreaseMaxHealth += IncreaseMaxHealth;
-        GameManager.Instance.ServiceLocator.EventManager.OnPlayerRecieveEnergy += RecieveEnergy;
+        GameManager.Instance.ServiceLocator.EventManager.OnPlayerRecieveFlatEnergy += RecieveFlatEnergy;
         GameManager.Instance.ServiceLocator.EventManager.OnPlayerLoseEnergy += LoseEnergy;
         GameManager.Instance.ServiceLocator.EventManager.OnPlayerRecieveTickEnergy += RecieveTickEnergy;
         GameManager.Instance.ServiceLocator.EventManager.OnPlayerIncreaseMaxEnergy += IncreaseMaxEnergy;
@@ -56,7 +62,7 @@ public class PlayerStatusManager : PlayerBase
         GameManager.Instance.ServiceLocator.EventManager.OnPlayerRecieveHealth -= RecieveHealth;
         GameManager.Instance.ServiceLocator.EventManager.OnPlayerRecieveTickHealth -= RecieveTickHealth;
         GameManager.Instance.ServiceLocator.EventManager.OnPlayerIncreaseMaxHealth -= IncreaseMaxHealth;
-        GameManager.Instance.ServiceLocator.EventManager.OnPlayerRecieveEnergy -= RecieveEnergy;
+        GameManager.Instance.ServiceLocator.EventManager.OnPlayerRecieveFlatEnergy -= RecieveFlatEnergy;
         GameManager.Instance.ServiceLocator.EventManager.OnPlayerLoseEnergy -= LoseEnergy;
         GameManager.Instance.ServiceLocator.EventManager.OnPlayerRecieveTickEnergy -= RecieveTickEnergy;
         GameManager.Instance.ServiceLocator.EventManager.OnPlayerIncreaseMaxEnergy -= IncreaseMaxEnergy;
@@ -181,7 +187,7 @@ public class PlayerStatusManager : PlayerBase
         GameManager.Instance.ServiceLocator.EventManager.OnPlayerArmorModified.Invoke();
     }
     // Energy 
-    private void RecieveEnergy(float energy)
+    private void RecieveFlatEnergy(float energy)
     {
         if (_curPlayerEnergy == CurrentPlayerDetails.Stats.Energy)
         {
@@ -191,6 +197,7 @@ public class PlayerStatusManager : PlayerBase
         PlayerMaxEnergyCheck();
         GameManager.Instance.ServiceLocator.EventManager.OnPlayerEnergyModified.Invoke();
     }
+    
     private void LoseEnergy(float energy)
     {
         _curPlayerEnergy -= energy;
@@ -214,7 +221,7 @@ public class PlayerStatusManager : PlayerBase
         float curInterval = 0;
         while (curInterval < intervals)
         {
-            RecieveEnergy(energy);
+            RecieveFlatEnergy(energy);
             yield return new WaitForSeconds(TickIntervalDuration);
             curInterval++;
         }
@@ -243,8 +250,6 @@ public class PlayerStatusManager : PlayerBase
                 _energyTimer = 0;
             }
         }
-
-        _curPlayerEnergy = (_curPlayerEnergy > CurrentPlayerDetails.Stats.Energy) ? CurrentPlayerDetails.Stats.Energy : _curPlayerEnergy;
     }
     #endregion 
 

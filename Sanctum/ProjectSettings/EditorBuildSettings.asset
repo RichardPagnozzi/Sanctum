@@ -18,7 +18,11 @@ EditorBuildSettings:
     path: Assets/1.) Screnes/Game Scenes/GameUI.unity
     guid: 60d163bbf49372945bef84e16c036403
   - enabled: 1
-    path: Assets/1.) Screnes/Feature Testing Scenes/Testing.unity
+    path: Assets/1.) Screnes/Game Scenes/Testing.unity
     guid: 43744f486486efb438955d25eaf56ba3
-  m_configObjects: {}
+  - enabled: 1
+    path: Assets/3.) Third Party/PolygonApocalypse/Scenes/Demo_City_Universal_RenderPipeline.unity
+    guid: 9ca7bdae70c06a546aa612594f2f6ace
+  m_configObjects:
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 7e9344ee85e687949a7ed096ac0ad020, type: 3}
   m_UseUCBPForAssetBundles: 0

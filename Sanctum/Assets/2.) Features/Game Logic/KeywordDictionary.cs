@@ -16,6 +16,7 @@ public static class  KeywordDictionary
         GamePlay = 2,
         GameUI = 3,
         Testing = 4,
+        Sandbox = 5
     };
 
     public enum MainMenuPanel

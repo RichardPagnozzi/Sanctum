@@ -620,10 +620,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 634270027}
     m_Modifications:
-    - target: {fileID: 5039413019172810577, guid: a7ed3d650a5cdcb48997c9c23491e56b, type: 3}
-      propertyPath: field of view
-      value: 35
-      objectReference: {fileID: 0}
     - target: {fileID: 5039413019549905689, guid: a7ed3d650a5cdcb48997c9c23491e56b, type: 3}
       propertyPath: m_Name
       value: Player Container

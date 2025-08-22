@@ -30,6 +30,9 @@ public class EventManager
     // Player Attack
     public Action OnPlayerAttackStart;
     public Action OnPlayerAttackStop;
+    public Action OnWeaponFired;
+    public Action OnWeaponReloaded;
+    public Action<float> OnWeaponReloadStart;
     // Enemy Health
     public Action<float, GameObject, Vector3, bool> OnEnemyRecieveDamage;
     public Action<float> OnEnemyRecieveHealth;
@@ -38,6 +41,5 @@ public class EventManager
     public Action OnItemAddedFailed;
     public Action <ItemTemplate>OnItemRemoved;
     public Action<Weapon> OnWeaponEquipped;
-    public Action OnWeaponFired;
-    public Action OnWeaponReloaded;
+
 }

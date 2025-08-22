@@ -21,6 +21,7 @@ MonoBehaviour:
   speed: 0.75
   ammoPool: 500
   magazineSize: 50
+  reloadSpeed: 1.15
   weaponModel: {fileID: 1700825503440746, guid: e046084f6e9e1d04192469b6faa21572, type: 3}
   weaponProjectile: {fileID: 0}
   impactDecal: {fileID: 0}

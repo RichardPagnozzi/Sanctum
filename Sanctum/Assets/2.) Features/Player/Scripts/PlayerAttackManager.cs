@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,6 +9,9 @@ public class PlayerAttackManager : MonoBehaviour
     private Weapon _equippedWeapon;
     private PlayerControls _playerInputActions;
     private CameraManager _cameraManager;
+    private Coroutine _reloadRoutine;
+    private bool _isReloading;
+
     
     #endregion
 
@@ -44,6 +48,7 @@ public class PlayerAttackManager : MonoBehaviour
     
     private void Attack()
     {
+        if(!_isReloading)
         _equippedWeapon?.AttackStart?.Invoke();
     }
     
@@ -54,9 +59,22 @@ public class PlayerAttackManager : MonoBehaviour
     
     private void Reload()
     {
-        _equippedWeapon?.ReloadMag();
+        if (_reloadRoutine != null) return; 
+        float reloadTime = (float)_equippedWeapon?.WeaponDetail.reloadSpeed;
+        _reloadRoutine = StartCoroutine(ReloadRoutine(reloadTime));
     }
 
+    private IEnumerator ReloadRoutine(float reloadTime)
+    {
+        _isReloading = true;
+        GameManager.Instance.ServiceLocator.EventManager.OnWeaponReloadStart(reloadTime);
+        yield return new WaitForSeconds(reloadTime);
+        _equippedWeapon?.ReloadMag();
+        GameManager.Instance.ServiceLocator.EventManager.OnWeaponReloaded();
+        _isReloading = false;
+        _reloadRoutine = null;
+    }
+    
     private void StartADS()
     {
         _cameraManager?.SwitchToCamera(KeywordDictionary.Cameras.vcam_ADS.ToString());

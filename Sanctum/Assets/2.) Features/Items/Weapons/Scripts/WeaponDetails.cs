@@ -21,6 +21,8 @@ public class WeaponDetails : ScriptableObject
     public int ammoPool;
     [Tooltip("Total ammount of ammunition a player can hold in their magizne")]
     public int  magazineSize;
+    [Tooltip("Total ammount of time it takes for the player to reload their magizne")]
+    public float  reloadSpeed;
     [Space(5)]
     [Tooltip("The Prefab of the weapon you want to instantiate for this weapon")]
     public GameObject weaponModel;

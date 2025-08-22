@@ -212,7 +212,7 @@ PrefabInstance:
       objectReference: {fileID: 877011830}
     - target: {fileID: 7651119545963650125, guid: 46caba045a99c4f4083530b1acb62e88, type: 3}
       propertyPath: _defaultLoadScene
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7651119545963650125, guid: 46caba045a99c4f4083530b1acb62e88, type: 3}
       propertyPath: _loadingSliderValue

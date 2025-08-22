@@ -11,6 +11,7 @@ public class PlayerMovementController : PlayerBase
     [SerializeField] private GameObject _trailRenderer;
 
     [SerializeField] private GameObject _aimAtObject;
+    [SerializeField] private GameObject _ikAimAtObject;
 
     // Aim Values
     private Vector3 _aimAtPosition;
@@ -82,12 +83,15 @@ public class PlayerMovementController : PlayerBase
 
     private void Update()
     {
-        PositionAimObject();
-        SetGroundedStatus();
-        GravityHandler();
-        MoveActionHandler();
-        JumpActionHandler();
-        AimActionHandler();
+        if (!_isPaused)
+        {
+            PositionAimObject();
+            SetGroundedStatus();
+            GravityHandler();
+            MoveActionHandler();
+            JumpActionHandler();
+            AimActionHandler();
+        }
     }
 
     #endregion
@@ -283,11 +287,15 @@ public class PlayerMovementController : PlayerBase
         if (_isPaused)
         {
             Time.timeScale = 0;
+            _ikAimAtObject.SetActive(false);
+            _aimAtObject.SetActive(false);
             UnlockCursor();
         }
         else
         {
             Time.timeScale = 1;
+            _ikAimAtObject.SetActive(true);
+            _aimAtObject.SetActive(true);
             LockCursor();
         }
     }

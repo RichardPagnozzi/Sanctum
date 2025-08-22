@@ -1088,9 +1088,17 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.059156895
       objectReference: {fileID: 0}
+    - target: {fileID: 3734341136218480688, guid: a7ed3d650a5cdcb48997c9c23491e56b, type: 3}
+      propertyPath: _startingWeaponItem
+      value: 
+      objectReference: {fileID: 11400000, guid: 510e083c6751fe54ca1919c527a29cca, type: 2}
     - target: {fileID: 4273755161761183538, guid: a7ed3d650a5cdcb48997c9c23491e56b, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4530570950905912853, guid: a7ed3d650a5cdcb48997c9c23491e56b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5039413018396763184, guid: a7ed3d650a5cdcb48997c9c23491e56b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1160,6 +1168,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5632343293870503273, guid: a7ed3d650a5cdcb48997c9c23491e56b, type: 3}
+      propertyPath: _ikAimAtObject
+      value: 
+      objectReference: {fileID: 566973987}
     - target: {fileID: 9099023252899331707, guid: a7ed3d650a5cdcb48997c9c23491e56b, type: 3}
       propertyPath: m_Intensity
       value: 0.2
@@ -1178,6 +1190,11 @@ PrefabInstance:
 --- !u!4 &566973986 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5039413019549905694, guid: a7ed3d650a5cdcb48997c9c23491e56b, type: 3}
+  m_PrefabInstance: {fileID: 566973985}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &566973987 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9186441946979891386, guid: a7ed3d650a5cdcb48997c9c23491e56b, type: 3}
   m_PrefabInstance: {fileID: 566973985}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &634270026

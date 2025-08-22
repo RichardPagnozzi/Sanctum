@@ -98,20 +98,20 @@ public class Firearm : Weapon
         Vector3 rayOrigin = _cam.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0.0f));
         RaycastHit hit;
 
-        //_lineRenderer.SetPosition(0, _shotPoint.transform.position);
+        _lineRenderer.SetPosition(0, _shotPoint.transform.position);
 
         if (Physics.Raycast(rayOrigin, _cam.transform.forward, out hit, _details.range))
         {
-            //_lineRenderer.SetPosition(1, hit.point);
+            _lineRenderer.SetPosition(1, hit.point);
             HandleImpact(hit);
         }
         else
         {
-            //_lineRenderer.SetPosition(1, rayOrigin + (_cam.transform.forward * _details.range));
+            _lineRenderer.SetPosition(1, rayOrigin + (_cam.transform.forward * _details.range));
         }
         _gunShotFX.Play();
         GameManager.Instance.ServiceLocator.EventManager.OnWeaponFired.Invoke();
-        //StartCoroutine(LineRenderingRoutine());
+        StartCoroutine(LineRenderingRoutine());
     }
 
     private IEnumerator AutoFire()

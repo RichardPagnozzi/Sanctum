@@ -19,6 +19,12 @@ public static class  KeywordDictionary
         Sandbox = 5
     };
 
+    public enum Cameras
+    {
+        vcam_Normal,
+        vcam_ADS
+    }
+
     public enum MainMenuPanel
     {
         Home,

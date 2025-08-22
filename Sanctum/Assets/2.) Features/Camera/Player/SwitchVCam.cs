@@ -11,6 +11,7 @@ public class SwitchVCam : MonoBehaviour
 
     private PlayerControls _playerInputActions;
     private CinemachineVirtualCamera _virtualCamera;
+    private CameraManager _cameraManager;
     #endregion
 
     private void Awake()
@@ -45,9 +46,10 @@ public class SwitchVCam : MonoBehaviour
     }
     private void Initialize()
     {
+        _cameraManager = GameManager.Instance.ServiceLocator.GetService<CameraManager>();
+        _virtualCamera = GetComponent<CinemachineVirtualCamera>();
         _playerInputActions = new PlayerControls();
         _playerInputActions.Player.Enable();
-        _virtualCamera = GetComponent<CinemachineVirtualCamera>();
     }
     #endregion
 }

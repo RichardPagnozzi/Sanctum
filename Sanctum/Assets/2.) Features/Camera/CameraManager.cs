@@ -5,11 +5,11 @@ using UnityEngine;
 public class CameraManager : MonoBehaviour
 {
     [SerializeField] private CinemachineBrain _cinemachineBrain;
-    [SerializeField] private List<CinemachineVirtualCamera> _registeredCameras;
-    [SerializeField] private int _priorityBoost = 20;   // how much higher "active" cam should be
+    [SerializeField] private List<CinemachineCamera> _registeredCameras;
+    [SerializeField] private int _priorityBoost = 10;
 
-    private CinemachineVirtualCamera _activeCamera;
-    private int _basePriority = 10; // default baseline for all cameras
+    private CinemachineCamera _activeCamera;
+    private int _basePriority = 0; 
 
     private void Awake()
     {
@@ -19,21 +19,21 @@ public class CameraManager : MonoBehaviour
 
     private void Start()
     {
-        // Normalize all cameras to base priority
-        foreach (var cam in _registeredCameras)
+        // Default any available cameras to base priority 
+        foreach (CinemachineCamera cam in _registeredCameras)
         {
             if (cam != null)
                 cam.Priority = _basePriority;
         }
 
-        // Default to first cam if available
+        // Default to first cam if set in editor
         if (_registeredCameras.Count > 0)
         {
             SwitchToCamera(_registeredCameras[0]);
         }
     }
 
-    public void RegisterCamera(CinemachineVirtualCamera cam)
+    public void RegisterCamera(CinemachineCamera cam)
     {
         if (cam != null && !_registeredCameras.Contains(cam))
         {
@@ -42,7 +42,7 @@ public class CameraManager : MonoBehaviour
         }
     }
 
-    public void SwitchToCamera(CinemachineVirtualCamera newCam, bool blend = true)
+    public void SwitchToCamera(CinemachineCamera newCam, bool blend = true)
     {
         if (newCam == null || newCam == _activeCamera) return;
 
@@ -54,11 +54,11 @@ public class CameraManager : MonoBehaviour
         newCam.Priority = _basePriority + _priorityBoost;
         _activeCamera = newCam;
 
-        // Optional: adjust blend style
-        var style = blend
+        // // Optional: adjust blend style
+        CinemachineBlendDefinition.Styles style = blend
             ? CinemachineBlendDefinition.Styles.EaseInOut
             : CinemachineBlendDefinition.Styles.Cut;
-
+        
         _cinemachineBrain.DefaultBlend = new CinemachineBlendDefinition(
             style,
             _cinemachineBrain.DefaultBlend.BlendTime
@@ -67,7 +67,7 @@ public class CameraManager : MonoBehaviour
 
     public void SwitchToCamera(string cameraName, bool blend = true)
     {
-        var cam = _registeredCameras.Find(c => c != null && c.name == cameraName);
+        CinemachineCamera cam = _registeredCameras.Find(c => c != null && c.name == cameraName);
         if (cam != null)
             SwitchToCamera(cam, blend);
     }
@@ -75,8 +75,8 @@ public class CameraManager : MonoBehaviour
     public void SetFOV(float fov)
     {
         if (_activeCamera != null)
-            _activeCamera.m_Lens.FieldOfView = fov;
+            _activeCamera.Lens.FieldOfView = fov;
     }
 
-    public CinemachineVirtualCamera GetActiveCamera() => _activeCamera;
+    public CinemachineCamera GetActiveCamera() => _activeCamera;
 }

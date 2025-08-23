@@ -96,7 +96,7 @@ public class PlayerAttackManager : MonoBehaviour
             Destroy(_equippedWeapon.gameObject);
         }
         _equippedWeapon = _toEquip;
-        GameManager.Instance.ServiceLocator.EventManager.OnWeaponEquipped.Invoke(_equippedWeapon);
+        GameManager.Instance.ServiceLocator.EventManager.OnWeaponEquipped?.Invoke(_equippedWeapon);
     }
    
     // Returns the currently equipped weapon

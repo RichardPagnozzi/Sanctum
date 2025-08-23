@@ -11,17 +11,20 @@ public class uiHudController : MonoBehaviour
     #region Members
 
     [SerializeField] PlayerStatusManager _playerStatusManager;
-    [Header("Vitals")] [SerializeField] private RectTransform _healthArmorBackground;
+    [Header("Vitals")] 
+    [SerializeField] private RectTransform _healthArmorBackground;
     [SerializeField] private Image _healthSlider;
     [SerializeField] private Image _energySlider;
     [SerializeField] private TMP_Text _healthText;
     [SerializeField] private TMP_Text _energyText;
-    [Header("Attack")] [SerializeField] private TextMeshProUGUI _weaponNameLabel;
+    [Header("Attack")] 
     [SerializeField] private TextMeshProUGUI _weaponAmmoLabel;
     [SerializeField] private GameObject _reloadObjects;
     [SerializeField] private Image _reloadRadialImage;
     [SerializeField] private Sprite _baseCrosshair, _adsCrosshair;
     [SerializeField] private Image _crosshairImage;
+    [Header("Character Menu")] 
+    [SerializeField] private GameObject _characterMenu;
     private Vector2 _originalHealthArmorBGPosition;
     private Weapon _equippedWeaponReference;
     private HorizontalLayoutGroup _layoutGroup;
@@ -46,12 +49,13 @@ public class uiHudController : MonoBehaviour
         GameManager.Instance.ServiceLocator.EventManager.OnPlayerRecieveDamage += ShakeBackground;
         GameManager.Instance.ServiceLocator.EventManager.OnPlayerHealthModified += UpdateHealthBarFill;
         GameManager.Instance.ServiceLocator.EventManager.OnPlayerEnergyModified += UpdateEnergyBarFill;
-        GameManager.Instance.ServiceLocator.EventManager.OnWeaponEquipped += UpdateEquippedWeaponNameLabel;
         GameManager.Instance.ServiceLocator.EventManager.OnWeaponFired += UpdateEquippedWeaponAmmoLabel;
+        GameManager.Instance.ServiceLocator.EventManager.OnWeaponEquipped += UpdateEquippedWeaponAmmoLabel;
         GameManager.Instance.ServiceLocator.EventManager.OnWeaponReloaded += UpdateEquippedWeaponAmmoLabel;
         GameManager.Instance.ServiceLocator.EventManager.OnWeaponReloadStart += StartReloadAnim;
         _playerInputActions.Player.ADS.performed += _ => OnAdsPerformed();
         _playerInputActions.Player.ADS.canceled += _ => OnAdsCancelled();
+        _playerInputActions.Player.Inventory.performed += _ => OnInventoryToggled();
     }
 
     private void OnDisable()
@@ -59,12 +63,12 @@ public class uiHudController : MonoBehaviour
         GameManager.Instance.ServiceLocator.EventManager.OnPlayerRecieveDamage -= ShakeBackground;
         GameManager.Instance.ServiceLocator.EventManager.OnPlayerHealthModified -= UpdateHealthBarFill;
         GameManager.Instance.ServiceLocator.EventManager.OnPlayerEnergyModified -= UpdateEnergyBarFill;
-        GameManager.Instance.ServiceLocator.EventManager.OnWeaponEquipped -= UpdateEquippedWeaponNameLabel;
         GameManager.Instance.ServiceLocator.EventManager.OnWeaponFired -= UpdateEquippedWeaponAmmoLabel;
         GameManager.Instance.ServiceLocator.EventManager.OnWeaponReloaded -= UpdateEquippedWeaponAmmoLabel;
         GameManager.Instance.ServiceLocator.EventManager.OnWeaponReloadStart -= StartReloadAnim;
         _playerInputActions.Player.ADS.performed -= _ => OnAdsPerformed();
         _playerInputActions.Player.ADS.canceled -= _ => OnAdsCancelled();
+        _playerInputActions.Player.Inventory.performed -= _ => OnInventoryToggled();
     }
 
     private void Start()
@@ -97,26 +101,25 @@ public class uiHudController : MonoBehaviour
                 $"{_playerStatusManager.CurPlayerEnergy.ToString("0")} / {GameManager.Instance.PlayerRepository.CurrentSessionPlayerDetails.Stats.Energy.ToString("0")}";
         }
     }
-
-    private void UpdateEquippedWeaponNameLabel(Weapon reference)
-    {
-        if (reference != null)
-        {
-            _equippedWeaponReference = reference;
-            _weaponNameLabel.text = reference.WeaponDetail.name.ToString();
-        }
-        else
-        {
-            _weaponNameLabel.text = "null";
-        }
-    }
+    
 
     private void UpdateEquippedWeaponAmmoLabel()
     {
         if (_equippedWeaponReference != null)
         {
-            _weaponAmmoLabel.text = _equippedWeaponReference.ammoInMag.ToString() + "/" +
-                                    _equippedWeaponReference.curAmmo.ToString();
+            _weaponAmmoLabel.text = _equippedWeaponReference.ammoInMag + "/" + _equippedWeaponReference.curAmmo;
+        }
+        else
+        {
+            _weaponAmmoLabel.text = "null";
+        }
+    }
+    
+    private void UpdateEquippedWeaponAmmoLabel(Weapon weapon)
+    {
+        if (_equippedWeaponReference != null)
+        {
+            _weaponAmmoLabel.text = _equippedWeaponReference.ammoInMag + "/" + _equippedWeaponReference.curAmmo;
         }
         else
         {
@@ -140,23 +143,22 @@ public class uiHudController : MonoBehaviour
         if (reloadAnimRoutine != null) StopCoroutine(reloadAnimRoutine);
         reloadAnimRoutine = StartCoroutine(ReloadAnimRoutine(duration));
     }
-
-    private IEnumerator ReloadAnimRoutine(float duration)
+    
+    private void OnInventoryToggled()
     {
-        ToggleReloadComponentState(true);
-        ToggleCrosshairState(false);
-        _reloadRadialImage.fillAmount = 0f;
-        float t = 0f;
-        while (t < duration)
+        bool state = !_characterMenu.activeSelf;
+        _characterMenu.SetActive(state);
+        
+        if (state)
         {
-            t += Time.deltaTime;
-            _reloadRadialImage.fillAmount = Mathf.Clamp01(t / duration);
-            yield return null;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
-
-        _reloadRadialImage.fillAmount = 1f;
-        ToggleReloadComponentState(false);
-        ToggleCrosshairState(true);    
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
     }
     
     private void OnAdsPerformed()
@@ -185,6 +187,25 @@ public class uiHudController : MonoBehaviour
         _crosshairImage.sprite = sourceImage;
     }
 
+    private IEnumerator ReloadAnimRoutine(float duration)
+    {
+        ToggleReloadComponentState(true);
+        ToggleCrosshairState(false);
+        _reloadRadialImage.fillAmount = 0f;
+        float t = 0f;
+        while (t < duration)
+        {
+            t += Time.deltaTime;
+            _reloadRadialImage.fillAmount = Mathf.Clamp01(t / duration);
+            yield return null;
+        }
+
+        _reloadRadialImage.fillAmount = 1f;
+        ToggleReloadComponentState(false);
+        ToggleCrosshairState(true);
+    }
+
+    
     private IEnumerator WaitForPlayerInit()
     {
         _playerStatusManager = GameManager.Instance.ServiceLocator.GetService<PlayerStatusManager>();
@@ -192,9 +213,7 @@ public class uiHudController : MonoBehaviour
         {
             yield return null;
         }
-
-        UpdateEquippedWeaponNameLabel(_playerStatusManager.gameObject.GetComponent<PlayerAttackManager>()
-            .GetEquippedWeapon());
+        UpdateEquippedWeaponAmmoLabel();
         UpdateHealthBarFill();
         UpdateEnergyBarFill();
     }

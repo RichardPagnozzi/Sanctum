@@ -53,6 +53,10 @@ public class PlayerStatusManager : PlayerBase
         GameManager.Instance.ServiceLocator.EventManager.OnPlayerIncreaseMaxEnergy += IncreaseMaxEnergy;
         GameManager.Instance.ServiceLocator.EventManager.OnPlayerRecieveArmor += RecieveArmor;
         GameManager.Instance.ServiceLocator.EventManager.OnPlayerIncreaseMaxArmor += IncreaseMaxArmor;
+        
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        
         _isInitialized = true;
     }
     private void OnDisable()
@@ -81,7 +85,7 @@ public class PlayerStatusManager : PlayerBase
         _curPlayerEnergy = CurrentPlayerDetails.Stats.Energy;
     }
     #endregion
-
+    
     #region Private
     // Threshold Checks
     private void PlayerDeathCheck()

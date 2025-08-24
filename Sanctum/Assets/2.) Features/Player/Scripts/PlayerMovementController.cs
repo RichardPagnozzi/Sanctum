@@ -281,7 +281,7 @@ public class PlayerMovementController : PlayerBase
         Cursor.visible = false;
     }
 
-    private void Pause()
+    void Pause()
     {
         _isPaused = !_isPaused;
         if (_isPaused)

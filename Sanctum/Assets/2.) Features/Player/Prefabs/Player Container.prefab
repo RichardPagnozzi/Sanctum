@@ -510,6 +510,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3112735106162080988}
+  - {fileID: 15262801954352192}
   - {fileID: 3112735106145070273}
   - {fileID: 1374958866}
   - {fileID: 1732495123840457175}
@@ -2404,7 +2405,7 @@ Transform:
   m_GameObject: {fileID: 3894131645447613163}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.0603824, y: 1.0643481, z: -0.5523124}
+  m_LocalPosition: {x: 2.0603824, y: 1.3143481, z: -0.5523119}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2430,11 +2431,11 @@ MonoBehaviour:
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
-    TrackingTarget: {fileID: 5341428482335722834}
+    TrackingTarget: {fileID: 15262801954352192}
     LookAtTarget: {fileID: 3112735106162080988}
     CustomLookAtTarget: 1
   Lens:
-    FieldOfView: 35
+    FieldOfView: 30
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -2466,7 +2467,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damping: {x: 0.1, y: 0.1, z: 0.1}
-  ShoulderOffset: {x: 0.35, y: 1.25, z: 0}
+  ShoulderOffset: {x: 0.35, y: 0, z: 0}
   VerticalArmLength: 0.4
   CameraSide: 1
   CameraDistance: 2.1
@@ -2476,8 +2477,8 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 13121
     IgnoreTag: 
-    CameraRadius: 0.2
-    DampingIntoCollision: 0
+    CameraRadius: 0.1
+    DampingIntoCollision: 0.25
     DampingFromCollision: 0.5
 --- !u!114 &541122910504357832
 MonoBehaviour:
@@ -7581,7 +7582,7 @@ Transform:
   m_GameObject: {fileID: 5039413018123300652}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.0603824, y: 1.0643481, z: -0.5523124}
+  m_LocalPosition: {x: 2.0603824, y: 1.3143481, z: -0.5523119}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7607,7 +7608,7 @@ MonoBehaviour:
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
-    TrackingTarget: {fileID: 5341428482335722834}
+    TrackingTarget: {fileID: 15262801954352192}
     LookAtTarget: {fileID: 3112735106162080988}
     CustomLookAtTarget: 1
   Lens:
@@ -7643,7 +7644,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damping: {x: 0.1, y: 0.1, z: 0.1}
-  ShoulderOffset: {x: 0.35, y: 1.25, z: 0}
+  ShoulderOffset: {x: 0.35, y: 0, z: 0}
   VerticalArmLength: 0.4
   CameraSide: 1
   CameraDistance: 2.1
@@ -7653,8 +7654,8 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 13121
     IgnoreTag: 
-    CameraRadius: 0.2
-    DampingIntoCollision: 0
+    CameraRadius: 0.1
+    DampingIntoCollision: 0.25
     DampingFromCollision: 0.5
 --- !u!114 &3103400487498368696
 MonoBehaviour:
@@ -7799,7 +7800,7 @@ Transform:
   m_GameObject: {fileID: 5039413019172810579}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.0603824, y: 1.0643481, z: -0.5523124}
+  m_LocalPosition: {x: 2.0603824, y: 1.3143481, z: -0.5523119}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7839,13 +7840,13 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 35
+  field of view: 30
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 14719
+    m_Bits: 14715
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -7888,7 +7889,7 @@ MonoBehaviour:
     Enabled: 0
     DefaultMode: 2
   DefaultBlend:
-    Style: 6
+    Style: 1
     Time: 0.1
     CustomCurve:
       serializedVersion: 2
@@ -7920,8 +7921,8 @@ MonoBehaviour:
     m_Bits: 14719
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
-  m_Antialiasing: 0
+  m_RenderPostProcessing: 1
+  m_Antialiasing: 3
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0
@@ -8273,6 +8274,37 @@ MonoBehaviour:
   - {fileID: 2948474178399307013}
   - {fileID: 2948474178399307009}
   - {fileID: 2948474178399306881}
+--- !u!1 &5531174287088926829
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 15262801954352192}
+  m_Layer: 0
+  m_Name: TrackAt
+  m_TagString: Player
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &15262801954352192
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5531174287088926829}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3083756233338822082}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5991348360501718583
 GameObject:
   m_ObjectHideFlags: 0
@@ -9080,7 +9112,7 @@ PositionConstraint:
   serializedVersion: 2
   m_Weight: 1
   m_TranslationAtRest: {x: 0, y: 1.19, z: -0.19400024}
-  m_TranslationOffset: {x: 0, y: 0, z: -10}
+  m_TranslationOffset: {x: -1.08, y: 0, z: 5.06}
   m_AffectTranslationX: 1
   m_AffectTranslationY: 1
   m_AffectTranslationZ: 1

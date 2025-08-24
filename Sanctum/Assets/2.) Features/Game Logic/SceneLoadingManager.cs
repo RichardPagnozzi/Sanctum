@@ -17,9 +17,11 @@ public class SceneLoadingManager : MonoBehaviour
     [SerializeField] private DefaultLoadScene _defaultLoadScene;
     private List<AsyncOperation> _loadingSceneOperations;
     private float _sceneLoadingProgress;
+    private bool _isDefaultLoad;
 
     private void Awake()
     {
+        _isDefaultLoad = false;
         _loadingSceneOperations = new List<AsyncOperation>();
         ResetLoadingProgress();
         
@@ -28,6 +30,7 @@ public class SceneLoadingManager : MonoBehaviour
             case DefaultLoadScene.DEFAULT:
             {
                 LoadScene(KeywordDictionary.Scenes.MainMenu, LoadSceneMode.Additive);
+                _isDefaultLoad = true;
                 break;
             }
             case DefaultLoadScene.TESTING:
@@ -77,10 +80,14 @@ public class SceneLoadingManager : MonoBehaviour
                 }
                 case KeywordDictionary.Scenes.GamePlay:
                 {
-                    //_loadingSceneOperations.Add(SceneManager.UnloadSceneAsync((int)KeywordDictionary.Scenes.MainMenu));
+                    if(_isDefaultLoad)
+                    {
+                        _loadingSceneOperations.Add(SceneManager.UnloadSceneAsync((int)KeywordDictionary.Scenes.MainMenu));
+                    }
                     _loadingSceneOperations.Add(SceneManager.LoadSceneAsync((int)KeywordDictionary.Scenes.GamePlay,
                         LoadSceneMode.Additive));
                     activeSceneIndex = (int)KeywordDictionary.Scenes.GamePlay;
+                    _isDefaultLoad = false; 
                     break;
                 }
                 case KeywordDictionary.Scenes.GameUI:

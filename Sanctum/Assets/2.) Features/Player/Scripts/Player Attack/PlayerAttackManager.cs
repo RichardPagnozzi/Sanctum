@@ -1,9 +1,8 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 [System.Serializable]
-public class PlayerAttackManager : MonoBehaviour
+public class PlayerAttackManager : PlayerBase
 {
     #region Members
     private Weapon _equippedWeapon;

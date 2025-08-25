@@ -333,18 +333,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 634270027}
     m_Modifications:
-    - target: {fileID: 2875418372621261928, guid: a7ed3d650a5cdcb48997c9c23491e56b, type: 3}
-      propertyPath: m_TranslationOffset.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2875418372621261928, guid: a7ed3d650a5cdcb48997c9c23491e56b, type: 3}
-      propertyPath: m_TranslationOffset.z
-      value: -10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5039413018396763184, guid: a7ed3d650a5cdcb48997c9c23491e56b, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.5523124
-      objectReference: {fileID: 0}
     - target: {fileID: 5039413019172810577, guid: a7ed3d650a5cdcb48997c9c23491e56b, type: 3}
       propertyPath: field of view
       value: 40
@@ -758,7 +746,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1636757432
 Transform:
   m_ObjectHideFlags: 0
@@ -1529,7 +1517,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1955668016
 Transform:
   m_ObjectHideFlags: 0
@@ -1922,7 +1910,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8655677652987788477, guid: f56261c24ba79a54c974b239d6abbdaa, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1948,7 +1936,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6403519357684901657, guid: c53a9f5ed7ea28848b515378f4be9eb4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6403519357684901676, guid: c53a9f5ed7ea28848b515378f4be9eb4, type: 3}
       propertyPath: m_LocalPosition.x

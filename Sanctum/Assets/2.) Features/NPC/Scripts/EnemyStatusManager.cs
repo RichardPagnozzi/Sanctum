@@ -30,6 +30,7 @@ public class EnemyStatusManager : MonoBehaviour, IPoolReturn
         }
     }
 
+    [SerializeField] private KeywordDictionary.EnemyType _type;
     [SerializeField] private Slider _healthSlider;
     [SerializeField] private Slider _armorSlider;
     [SerializeField] private DamageNumber _damagePopup;
@@ -208,6 +209,45 @@ public class EnemyStatusManager : MonoBehaviour, IPoolReturn
         _armorSlider.value = _curEnemyArmor / _maxEnemyArmor;
     }
 
+    // Helpers
+    private void AssignEnemyDamageAmnt()
+    {
+        switch (_type)
+        {
+            case KeywordDictionary.EnemyType.Walker:
+            {
+                break;
+            }
+            case KeywordDictionary.EnemyType.Runner:
+            {
+                break;
+            }
+            case KeywordDictionary.EnemyType.Screamer:
+            {
+                break;
+            }
+            case KeywordDictionary.EnemyType.Bloater:
+            {
+                break;
+            }
+            case KeywordDictionary.EnemyType.Riot:
+            {
+                break;
+            }
+            case KeywordDictionary.EnemyType.Shooter:
+            {
+                break;
+            }
+            case KeywordDictionary.EnemyType.Sniper:
+            {
+                break;
+            }
+        }
+    }
+    #endregion
+
+    #region Public
+
     public void AttackPlayer()
     {
         try
@@ -217,13 +257,9 @@ public class EnemyStatusManager : MonoBehaviour, IPoolReturn
         catch (Exception)
         {
         }
-            
+
         Debug.Log("Attacking Player");
     }
-
-    #endregion
-
-    #region Public
 
     public void SetupReturn(EnemySpawnController spawner)
     {

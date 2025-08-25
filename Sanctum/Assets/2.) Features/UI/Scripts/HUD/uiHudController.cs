@@ -2,14 +2,12 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System;
-using System.Collections.Generic;
+using Player;
 using DG.Tweening;
 
 public class uiHudController : MonoBehaviour
 {
     #region Members
-
     [SerializeField] PlayerStatusManager _playerStatusManager;
     [Header("Vitals")] 
     [SerializeField] private RectTransform _healthArmorBackground;

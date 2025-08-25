@@ -1,5 +1,5 @@
-using TMPro;
 using UnityEngine;
+using Player;
 
 public class Item : MonoBehaviour
 {

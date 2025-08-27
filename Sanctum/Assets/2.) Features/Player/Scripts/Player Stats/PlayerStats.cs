@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Player
-{
-    [Serializable]
+    [System.Serializable]
     public class PlayerStats
     {
         [NonSerialized] private Dictionary<StatName, Action<float>> _statSetters;
@@ -40,39 +38,41 @@ namespace Player
         }
 
         #region Members
-
+        /// <summary>
+        /// Members must stay serialized in order to be saved and read to/from Json Format
+        ///
+        /// </summary>
         // Gameplay
-         private float _level;
+        [SerializeField]  private float _level;
         // Vitals
-        private float _health;
-        private float _energy;
-        private float _energyRechargeAmmount;
-        private float _armor;
+        [SerializeField] private float _health;
+        [SerializeField] private float _energy;
+        [SerializeField] private float _energyRechargeAmmount;
+        [SerializeField] private float _armor;
         // Movement modifiers
-        private float _movementSpeed;
-        private float _movementRotationSpeed;
-        private float _sprintSpeed;
-        private float _sprintCost;
-        private float _gravityValue;
-        private float _aimAtObjectRange;
-        private float _jumpHeight;
-        private float _jumpDelay;
-        private float _jumpResetDelay;
-        private float _jumpCost;
-        private int _maxJumps;
+        [SerializeField] private float _movementSpeed;
+        [SerializeField] private float _movementRotationSpeed;
+        [SerializeField] private float _sprintSpeed;
+        [SerializeField] private float _sprintCost;
+        [SerializeField] private float _gravityValue;
+        [SerializeField] private float _aimAtObjectRange;
+        [SerializeField] private float _jumpHeight;
+        [SerializeField] private float _jumpDelay;
+        [SerializeField] private float _jumpResetDelay;
+        [SerializeField] private float _jumpCost;
+        [SerializeField] private int _maxJumps;
         // Damage modifiers
-        private float _attackDamageModifier;
-        private float _attackVelocityModifier;
-        private float _criticalChanceModifier;
-        private float _criticalDamageModifier;
-        private float _armorPiercingModifier;
-        private int _ammoPoolModifier;
+        [SerializeField] private float _attackDamageModifier;
+        [SerializeField] private float _attackVelocityModifier;
+        [SerializeField] private float _criticalChanceModifier;
+        [SerializeField] private float _criticalDamageModifier;
+        [SerializeField] private float _armorPiercingModifier;
+        [SerializeField] private int _ammoPoolModifier;
         // Items
-        private int _inventorySlots;
-        private int _activeItemSlots;
-        private int _startingInventorySlots;
-        private int _startingActiveItemSlots;
-
+        [SerializeField] private int _inventorySlots;
+        [SerializeField] private int _activeItemSlots;
+        [SerializeField] private int _startingInventorySlots;
+        [SerializeField] private int _startingActiveItemSlots;
         #endregion
 
         #region Readonly Accessors
@@ -197,4 +197,3 @@ namespace Player
             }
         }
     }
-}

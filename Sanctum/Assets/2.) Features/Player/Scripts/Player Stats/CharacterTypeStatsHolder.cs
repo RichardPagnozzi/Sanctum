@@ -1,9 +1,8 @@
+
 public static class CharacterTypeStatsHolder
 {
 }
 
-namespace Player
-{
     [System.Serializable]
     public class CharacterBalancedStats : PlayerStats
     {
@@ -163,4 +162,3 @@ namespace Player
         {
         }
     }
-}

@@ -35,7 +35,7 @@ public class PlayerSelectionController : MonoBehaviour
             {
                 _isPlayerInitialized = false;
             }
-            else
+            else if(GameManager.Instance.PlayerRepository.CurrentSessionPlayerDetails.Stats.Health != 0)
             {
                 _isPlayerInitialized = true;
                 _playerDetails = GameManager.Instance.PlayerRepository.CurrentSessionPlayerDetails;

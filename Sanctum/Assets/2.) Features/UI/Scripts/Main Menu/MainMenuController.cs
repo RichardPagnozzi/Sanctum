@@ -110,7 +110,6 @@ public class MainMenuController : MonoBehaviour
     {
         _playButton.transform.DOPunchScale(CardShakeScale, CardShakeDuration, CardShakeVibratto, 1f).OnComplete(() =>
         {
-            // GameManager.Instance.ServiceLocator.GetService<SceneLoadingManager>().LoadScene(KeywordDictionary.Scenes.GamePlay, LoadSceneMode.Additive);
             SwitchPanel(KeywordDictionary.MainMenuPanel.PlayerSelection);
         });
     }

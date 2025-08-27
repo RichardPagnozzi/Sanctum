@@ -1,5 +1,4 @@
-namespace Player
-{
+
     [System.Serializable]
     public class PlayerDetails
     {
@@ -48,4 +47,3 @@ namespace Player
             }
         }
     }
-}

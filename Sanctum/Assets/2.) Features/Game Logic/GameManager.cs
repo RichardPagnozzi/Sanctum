@@ -33,7 +33,7 @@ public class GameManager : Singleton<GameManager>
             PlayerRepository = new PlayerRepository();
             if (PlayerRepository.TryLoadPlayer() == false)
             {
-                PlayerRepository.InitializeNewPlayer(KeywordDictionary.PlayerCharacterType.Balanced);
+                // PlayerRepository.InitializeNewPlayer(KeywordDictionary.PlayerCharacterType.Balanced);
             }
             return true;
         }

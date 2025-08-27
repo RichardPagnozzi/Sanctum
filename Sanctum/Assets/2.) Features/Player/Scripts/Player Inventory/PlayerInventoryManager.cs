@@ -28,7 +28,7 @@ namespace Player
         private const int BaseInventorySlots = 5;
         private int _curMaxInventorySlots;
         private int _curAvailableItemSlots;
-        private EquippedWeaponReference _equippedWeaponRef = new EquippedWeaponReference();
+        private EquippedWeaponReference _equippedWeaponRef;
         private bool _displayInventory;
 
         #endregion
@@ -70,12 +70,11 @@ namespace Player
                 AddItemToInventory(_startingWeaponItem);
             }
         }
-
-        public void OnInventoryToggled()
-        {
-            _displayInventory = !_displayInventory;
-        }
-
+        
+        #endregion
+        
+        
+        #region Private Methods
         private void OnGUI()
         {
             if (_displayInventory)
@@ -90,11 +89,6 @@ namespace Player
                 }
             }
         }
-
-        #endregion
-
-        #region Private Methods
-
         private void DestroyEquippedWeaponObject()
         {
             Destroy(_weaponParent.GetChild(_weaponParent.childCount - 1).gameObject);
@@ -133,6 +127,11 @@ namespace Player
 
         #region Public Methods
 
+        public void OnInventoryToggled()
+        {
+            _displayInventory = !_displayInventory;
+        }
+        
         /// <summary>
         /// Returns True if an item was successfully added to the players inventory
         /// </summary>

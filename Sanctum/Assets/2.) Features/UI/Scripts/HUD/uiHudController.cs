@@ -8,7 +8,7 @@ using DG.Tweening;
 public class uiHudController : MonoBehaviour
 {
     #region Members
-    [SerializeField] PlayerStatusManager _playerStatusManager;
+    private PlayerCoordinator _playerCoordinator;
     [Header("Vitals")] 
     [SerializeField] private RectTransform _healthArmorBackground;
     [SerializeField] private Image _healthSlider;
@@ -73,7 +73,7 @@ public class uiHudController : MonoBehaviour
     {
         _originalHealthArmorBGPosition = _healthArmorBackground.position;
         _layoutGroup = GetComponentInParent<HorizontalLayoutGroup>();
-        _playerStatusManager = GameManager.Instance.ServiceLocator.GetService<PlayerCoordinator>().StatusController;
+
     }
 
     #endregion
@@ -82,9 +82,9 @@ public class uiHudController : MonoBehaviour
 
     private void UpdateHealthBarFill()
     {
-        if (_playerStatusManager != null)
+        if (_playerCoordinator != null)
         {
-            float targetFillAmount = _playerStatusManager.CurPlayerHealth /
+            float targetFillAmount = _playerCoordinator.StatusController.CurPlayerHealth /
                                      GameManager.Instance.PlayerRepository.CurrentSessionPlayerDetails.Stats.Health;
             StartCoroutine(SmoothHealthSliderUpdate(_healthSlider, targetFillAmount, _healthText));
         }
@@ -92,16 +92,16 @@ public class uiHudController : MonoBehaviour
 
     private void UpdateEnergyBarFill()
     {
-        if (_playerStatusManager != null)
+        if (_playerCoordinator != null)
         {
-            _energySlider.fillAmount = _playerStatusManager.CurPlayerEnergy /
+            _energySlider.fillAmount = _playerCoordinator.StatusController.CurPlayerEnergy /
                                        GameManager.Instance.PlayerRepository.CurrentSessionPlayerDetails.Stats.Energy;
             _energyText.text =
-                $"{_playerStatusManager.CurPlayerEnergy.ToString("0")} / {GameManager.Instance.PlayerRepository.CurrentSessionPlayerDetails.Stats.Energy.ToString("0")}";
+                $"{_playerCoordinator.StatusController.CurPlayerEnergy.ToString("0")} / {GameManager.Instance.PlayerRepository.CurrentSessionPlayerDetails.Stats.Energy.ToString("0")}";
         }
     }
-    
 
+    
     private void UpdateEquippedWeaponAmmoLabel()
     {
         if (_equippedWeaponReference != null)
@@ -116,14 +116,11 @@ public class uiHudController : MonoBehaviour
     
     private void UpdateEquippedWeaponAmmoLabel(Weapon weapon)
     {
-        if (_equippedWeaponReference != null)
+        if (_equippedWeaponReference == null)
         {
-            _weaponAmmoLabel.text = _equippedWeaponReference.ammoInMag + "/" + _equippedWeaponReference.curAmmo;
+            _equippedWeaponReference = weapon;
         }
-        else
-        {
-            _weaponAmmoLabel.text = "null";
-        }
+        _weaponAmmoLabel.text = _equippedWeaponReference.ammoInMag + "/" + _equippedWeaponReference.curAmmo;
     }
 
     private void SetPlayerReferencesRoutine()
@@ -207,8 +204,8 @@ public class uiHudController : MonoBehaviour
     
     private IEnumerator WaitForPlayerInit()
     {
-        _playerStatusManager = GameManager.Instance.ServiceLocator.GetService<PlayerStatusManager>();
-        while (_playerStatusManager.IsInitialized == false)
+        _playerCoordinator = GameManager.Instance.ServiceLocator.GetService<PlayerCoordinator>();
+        while (_playerCoordinator.StatusController.IsInitialized == false)
         {
             yield return null;
         }
@@ -232,7 +229,7 @@ public class uiHudController : MonoBehaviour
 
         slider.fillAmount = targetFillAmount;
         _healthText.text =
-            $"{_playerStatusManager.CurPlayerHealth.ToString("0")} / {GameManager.Instance.PlayerRepository.CurrentSessionPlayerDetails.Stats.Health.ToString("0")}";
+            $"{_playerCoordinator.StatusController.CurPlayerHealth.ToString("0")} / {GameManager.Instance.PlayerRepository.CurrentSessionPlayerDetails.Stats.Health.ToString("0")}";
     }
 
     #endregion

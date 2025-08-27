@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Player;
 
 public class PlayerSelectionController : MonoBehaviour
 {

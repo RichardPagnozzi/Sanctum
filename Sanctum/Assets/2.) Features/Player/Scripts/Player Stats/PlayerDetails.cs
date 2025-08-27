@@ -1,52 +1,51 @@
-
-[System.Serializable]
-public class PlayerDetails
+namespace Player
 {
-
-    public KeywordDictionary.PlayerCharacterType CharacterType;
-    public PlayerStats Stats;
-
-
-
-    // Constructor to be used when creating a NEW character
-    public PlayerDetails(KeywordDictionary.PlayerCharacterType characterType)
+    [System.Serializable]
+    public class PlayerDetails
     {
-        CharacterType = characterType;
-        ResetToBaseStats();
-    }
-    
-    // Constructor to be used when creating a From-Exisintg character
-    public PlayerDetails(PlayerStats stats, KeywordDictionary.PlayerCharacterType characterType )
-    {
-        Stats = stats;
-        CharacterType = characterType;
-    }
-    
-    private void ResetToBaseStats()
-    {
-        switch (CharacterType)
+        public KeywordDictionary.PlayerCharacterType CharacterType;
+        public PlayerStats Stats { get; set; }
+
+
+        // Constructor to be used when creating a NEW character
+        public PlayerDetails(KeywordDictionary.PlayerCharacterType characterType)
         {
-            case KeywordDictionary.PlayerCharacterType.Balanced:
+            CharacterType = characterType;
+            ResetToBaseStats();
+        }
+
+        // Constructor to be used when creating an Existing character
+        public PlayerDetails(PlayerStats stats, KeywordDictionary.PlayerCharacterType characterType)
+        {
+            Stats = stats;
+            CharacterType = characterType;
+        }
+
+        private void ResetToBaseStats()
+        {
+            switch (CharacterType)
             {
-                Stats = new CharacterBalancedStats();
-                break;
-            }
-            case KeywordDictionary.PlayerCharacterType.Fast:
-            {
-                Stats = new CharacterFastStats();
-                break;
-            }
-            case KeywordDictionary.PlayerCharacterType.Tough:
-            {
-                Stats = new CharacterToughStats();
-                break;
-            }
-            case KeywordDictionary.PlayerCharacterType.Athletic:
-            {
-                Stats = new CharacterAthleticStats();
-                break;
+                case KeywordDictionary.PlayerCharacterType.Balanced:
+                {
+                    Stats = new CharacterBalancedStats();
+                    break;
+                }
+                case KeywordDictionary.PlayerCharacterType.Fast:
+                {
+                    Stats = new CharacterFastStats();
+                    break;
+                }
+                case KeywordDictionary.PlayerCharacterType.Tough:
+                {
+                    Stats = new CharacterToughStats();
+                    break;
+                }
+                case KeywordDictionary.PlayerCharacterType.Athletic:
+                {
+                    Stats = new CharacterAthleticStats();
+                    break;
+                }
             }
         }
     }
-
 }

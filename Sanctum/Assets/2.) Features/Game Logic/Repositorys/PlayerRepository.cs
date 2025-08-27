@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+namespace Player{
 public class PlayerRepository
 {
     private const string PlayerPrefsKey_PlayerInitialized = "PlayerInitialized";
@@ -11,7 +12,6 @@ public class PlayerRepository
     private PlayerStats CurrentSessionPlayerStats;
     private KeywordDictionary.PlayerCharacterType CurrentSessionCharacterType;
 
-    
 
     private bool LoadPlayerDetails()
     {
@@ -23,20 +23,20 @@ public class PlayerRepository
                 // Assign Stats
                 if (PlayerPrefs.HasKey(PlayerPrefsKey_PlayerStats))
                 {
-                    string json = PlayerPrefs.GetString(PlayerPrefsKey_PlayerStats); 
+                    string json = PlayerPrefs.GetString(PlayerPrefsKey_PlayerStats);
                     CurrentSessionPlayerStats = JsonUtility.FromJson<PlayerStats>(json);
                 }
 
                 // Assign Type
                 if (PlayerPrefs.HasKey(PlayerPrefsKey_CharacterType))
                 {
-                    string json = PlayerPrefs.GetString(PlayerPrefsKey_CharacterType); 
+                    string json = PlayerPrefs.GetString(PlayerPrefsKey_CharacterType);
                     CurrentSessionCharacterType = JsonUtility.FromJson<KeywordDictionary.PlayerCharacterType>(json);
                 }
 
                 // Set local player details using loaded data
                 SetPlayerDetails(new PlayerDetails(CurrentSessionPlayerStats,
-                    CurrentSessionCharacterType)); 
+                    CurrentSessionCharacterType));
                 return true;
             }
 
@@ -64,12 +64,12 @@ public class PlayerRepository
         CurrentSessionPlayerDetails = details;
         SavePlayerDetails();
     }
-    
+
     public void InitializeNewPlayer(KeywordDictionary.PlayerCharacterType characterType)
     {
         SetPlayerDetails(new PlayerDetails(characterType));
     }
-    
+
     public bool TryLoadPlayer()
     {
         if (LoadPlayerDetails())
@@ -81,5 +81,5 @@ public class PlayerRepository
         DebugLogger.Log($"Failed Loading Player: No Player Found", DebugLogger.LogStyle.Bold, Color.red);
         return false;
     }
-    
+}
 }

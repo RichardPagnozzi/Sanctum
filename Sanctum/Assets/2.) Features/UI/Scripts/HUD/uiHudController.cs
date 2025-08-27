@@ -73,6 +73,7 @@ public class uiHudController : MonoBehaviour
     {
         _originalHealthArmorBGPosition = _healthArmorBackground.position;
         _layoutGroup = GetComponentInParent<HorizontalLayoutGroup>();
+        _playerStatusManager = GameManager.Instance.ServiceLocator.GetService<PlayerCoordinator>().StatusController;
     }
 
     #endregion

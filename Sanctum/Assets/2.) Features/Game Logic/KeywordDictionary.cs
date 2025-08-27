@@ -58,6 +58,7 @@ public static class  KeywordDictionary
 
     public enum EnemyArchType
     {
+        Standard, // default
         Infected, // stinks, poisonous aura that dmgs
         Armored, // shielded
         Drowned, // slows on hit

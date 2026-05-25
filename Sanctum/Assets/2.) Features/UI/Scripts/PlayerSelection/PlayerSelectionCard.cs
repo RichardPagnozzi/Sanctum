@@ -90,7 +90,6 @@
             _backgroundImage.sprite = _filledBG;
             if (playerDetails != null)
             {
-                _playerNameText.text = playerDetails.CharacterType.ToString();
                 _playerLevelText.text = $"Level: {playerDetails.Stats.Level}";
             }
             cardClickAction = OnFilledCardCLick;

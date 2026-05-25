@@ -37,14 +37,6 @@ public static class  KeywordDictionary
         CreateCharacter
     }
     
-    public enum PlayerCharacterType
-    {
-        Balanced, // well roudned stats
-        Fast, // fast movement speed with high energy burn
-        Tough, // high health with slow movement speed
-        Athletic, // high energy with low sprint speed
-    }
-
     public enum EnemyType
     {
         Walker, // slow chase

@@ -10,7 +10,6 @@ public class PlayerRepository
 
     public PlayerDetails CurrentSessionPlayerDetails { get; private set; }
     private PlayerStats CurrentSessionPlayerStats;
-    private KeywordDictionary.PlayerCharacterType CurrentSessionCharacterType;
 
 
     private bool LoadPlayerDetails()
@@ -26,17 +25,9 @@ public class PlayerRepository
                     string json = PlayerPrefs.GetString(PlayerPrefsKey_PlayerStats);
                     CurrentSessionPlayerStats = JsonUtility.FromJson<PlayerStats>(json);
                 }
-
-                // Assign Type
-                if (PlayerPrefs.HasKey(PlayerPrefsKey_CharacterType))
-                {
-                    string json = PlayerPrefs.GetString(PlayerPrefsKey_CharacterType);
-                    CurrentSessionCharacterType = JsonUtility.FromJson<KeywordDictionary.PlayerCharacterType>(json);
-                }
-
+                
                 // Set local player details using loaded data
-                SetPlayerDetails(new PlayerDetails(CurrentSessionPlayerStats,
-                    CurrentSessionCharacterType));
+                SetPlayerDetails(new PlayerDetails(CurrentSessionPlayerStats));
                 return true;
             }
 
@@ -53,9 +44,7 @@ public class PlayerRepository
     private void SavePlayerDetails()
     {
         string jsonStats = JsonUtility.ToJson(CurrentSessionPlayerDetails.Stats);
-        string jsonCharacterType = JsonUtility.ToJson(CurrentSessionPlayerDetails.CharacterType);
         PlayerPrefs.SetString(PlayerPrefsKey_PlayerStats, jsonStats);
-        PlayerPrefs.SetString(PlayerPrefsKey_CharacterType, jsonCharacterType);
         PlayerPrefs.SetInt(PlayerPrefsKey_PlayerInitialized, 0);
     }
 
@@ -65,9 +54,9 @@ public class PlayerRepository
         SavePlayerDetails();
     }
 
-    public void InitializeNewPlayer(KeywordDictionary.PlayerCharacterType characterType)
+    public void InitializeNewPlayer()
     {
-        SetPlayerDetails(new PlayerDetails(characterType));
+        SetPlayerDetails(new PlayerDetails());
     }
 
     public bool TryLoadPlayer()

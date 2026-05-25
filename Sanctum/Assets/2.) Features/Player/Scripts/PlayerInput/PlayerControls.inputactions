@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "PlayerControls",
     "maps": [
         {
@@ -19,7 +20,7 @@
                     "type": "Value",
                     "id": "4600121a-f357-4de1-8d3e-76a41ae71ed1",
                     "expectedControlType": "Vector2",
-                    "processors": "DeltaTimeScale,ScaleVector2(x=0.075,y=0.075)",
+                    "processors": "DeltaTimeScale",
                     "interactions": "",
                     "initialStateCheck": true
                 },
@@ -212,7 +213,7 @@
                     "id": "4d3da1be-d19d-4644-ade9-753024879d9c",
                     "path": "<Pointer>/delta",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "ScaleVector2(x=0.1,y=0.1)",
                     "groups": ";Keyboard and Mouse",
                     "action": "Look",
                     "isComposite": false,

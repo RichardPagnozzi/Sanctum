@@ -84,7 +84,6 @@ namespace Player
             _playerInputActions.Player.Pause.performed -= _ => OnPause();
             // Character Menu
             _playerInputActions.Player.Inventory.performed -= _ => OnInventoryToggled();
-
         }
 
         #endregion
@@ -101,7 +100,7 @@ namespace Player
             if (context.started)
             {
                 _jumpPressed = true;
-            }        
+            }
         }
 
         private void OnDashStart()
@@ -147,16 +146,17 @@ namespace Player
         {
             _playerCoordinator.InventoryController.OnInventoryToggled();
         }
-        
+
         #endregion
-        
+
         public bool ConsumeJumpPressed()
         {
             if (_jumpPressed)
             {
-                _jumpPressed = false; 
+                _jumpPressed = false;
                 return true;
             }
+
             return false;
         }
     }
